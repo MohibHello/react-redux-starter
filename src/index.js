@@ -56,3 +56,12 @@ import * as actions from './actionCreators'
 store.dispatch(actions.bugAdded("bug added"))
 
 console.log(store.getState()) */
+
+
+
+/* import store from './customStore'
+import * as actions from './actionCreators'
+
+store.subscribe(()=>{
+    console.log("store changed")
+}) */

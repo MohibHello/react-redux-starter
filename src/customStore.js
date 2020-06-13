@@ -3,6 +3,7 @@ import reducer from './reducer'
 function customStore(reducer){
 
     let state;
+    let listeners =[]
 
     function getState() {
         return state;
@@ -12,11 +13,18 @@ function customStore(reducer){
         state = reducer(state,action);
         //Notify the Subscribers
 
+        for (let i = 0; i < listeners.length; i++) {
+            listeners[i]();    
+        }
     }
 
+        function subscribe(listener) {
+            listeners.push(listener)
+            listener()
+        }
 
 
-    return { getState, dispatch}
+    return { subscribe, getState, dispatch}
 
 }
 
