@@ -1,6 +1,6 @@
 import store from './store';
 
-
+import { bugAdded,bugResolved} from './actionCreators'
 
 /* 
 // store is object which has following methods:
@@ -11,21 +11,29 @@ import store from './store';
 * Symbol(observable)
 */
 
-// to set the State we use dispatch and pass action
-// to add bug in state
-store.dispatch({
-    type:"ADD_BUG",
-    payload:{
-        description:"bug added"
-    }
+/* 
+DOM element working code goes here
+logging..
+when store state changes subscribe gets called everytime
+
+*/
+const unsubscribe = store.subscribe(()=>{
+    console.log("store Changed",store.getState())
 })
 
-// to remove bug
-store.dispatch({
-    type:"REMOVE_BUG",
-    payload:{
-        id:1
-    }
-})
+
+
+// to set the State we use dispatch and pass action
+// to add bug in state
+store.dispatch(bugAdded("bug added now"))
+
+//resolve bug by passing id to bugResolved()
+store.dispatch(bugResolved(1))
+
+
+/* // unsubscribe from store 
+unsubscribe(); */
+
+
 
 console.log(store.getState())
