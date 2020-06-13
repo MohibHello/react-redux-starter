@@ -45,8 +45,14 @@ store.dispatch({
 console.log(store.getState())
 
 
-// import customStore from './customStore'
+/* import customStore from './customStore'
+customStore.state=6
+console.log(customStore) */
 
-// customStore.state=6
 
-// console.log(customStore)
+/* import store from './customStore'
+import * as actions from './actionCreators'
+
+store.dispatch(actions.bugAdded("bug added"))
+
+console.log(store.getState()) */
