@@ -22,14 +22,15 @@
 
 
 */
+import * as actions from "./actionTypes";
 
 let lastId = 0;
 
 function reducer(state = [], action) {
   switch (action.type) {
-    case "ADD_BUG":
+    case actions.ADD_BUG:
       return [
-          //shallow copy of passed state
+        //shallow copy of passed state
         ...state,
         //action which has to be performed while adding bug
         {
@@ -39,12 +40,20 @@ function reducer(state = [], action) {
         },
       ];
       break;
-    case "REMOVE_BUG":
-        // to remove object in state this way is recommended
+    case actions.REMOVE_BUG:
+      // to remove object in state this way is recommended
       return state.filter((bug) => bug.id !== action.payload.id);
 
+      break;
+
+    case actions.RESOLVE_BUG:
+      // mapping array if id !=payload.id then return bug else change reslove:true
+      return state.map((bug) =>
+        bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
+      );
+
     default:
-    return state;
+      return state;
   }
 }
 
