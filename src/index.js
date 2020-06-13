@@ -34,6 +34,19 @@ store.dispatch(bugResolved(1))
 /* // unsubscribe from store 
 unsubscribe(); */
 
-
+// to remove bug
+store.dispatch({
+    type:"REMOVE_BUG",
+    payload:{
+        id:1
+    }
+})
 
 console.log(store.getState())
+
+
+// import customStore from './customStore'
+
+// customStore.state=6
+
+// console.log(customStore)
