@@ -11,39 +11,25 @@
     so this Duck pattern helps by putting all action types,creators,reducer
     in one js file
 */
+import { createAction } from "@reduxjs/toolkit";
 
+//Action using createAction from reduxjs/toolkit
 
-// Action Types
-const ADD_BUG = "bugAdded";
-const REMOVE_BUG = "bugRemoved";
-const RESOLVE_BUG = "bugResolved";
+export const bugAdded = createAction("bugAdded");
+export const bugResolved = createAction("bugResolved");
+export const bugRemoved = createAction("bugRemoved");
 
-//Action Creators
-export const bugAdded = (description) => ({
-  type: ADD_BUG,
-  payload: {
-    description: description,
-  },
-});
-
-export const bugResolved = (id) => ({
-  type: RESOLVE_BUG,
-  payload: {
-    //shorthand syntax just id
-    id,
-  },
-});
-
-
+/* console.log('bugAdded', bugAdded())//{type: "bugAdded", payload: undefined}
+Here Type is bugAdded which we passed as input and payload is passed as object 
+via Store
+*/
 
 // Reducers
 let lastId = 0;
- 
-export default function reducer(state = [], action) {
 
-    
+export default function reducer(state = [], action) {
   switch (action.type) {
-    case ADD_BUG:
+    case bugAdded.type:
       return [
         //shallow copy of passed state
         ...state,
@@ -55,13 +41,13 @@ export default function reducer(state = [], action) {
         },
       ];
       break;
-    case REMOVE_BUG:
+    case bugRemoved.type:
       // to remove object in state this way is recommended
       return state.filter((bug) => bug.id !== action.payload.id);
 
       break;
 
-    case RESOLVE_BUG:
+    case bugResolved.type:
       // mapping array if id !=payload.id then return bug else change reslove:true
       return state.map((bug) =>
         bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
