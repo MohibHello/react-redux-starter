@@ -26,6 +26,8 @@ const unsubscribe = store.subscribe(()=>{
 // to set the State we use dispatch and pass action
 // to add bug in state
 store.dispatch(bugAdded("bug added now"))
+store.dispatch(bugAdded("bug added 2"))
+store.dispatch(bugAdded("bug added 3"))
 
 //resolve bug by passing id to bugResolved()
 store.dispatch(bugResolved(1))
@@ -34,13 +36,13 @@ store.dispatch(bugResolved(1))
 /* // unsubscribe from store 
 unsubscribe(); */
 
-// to remove bug
-store.dispatch({
-    type:"REMOVE_BUG",
-    payload:{
-        id:1
-    }
-})
+// // to remove bug
+// store.dispatch({
+//     type:"REMOVE_BUG",
+//     payload:{
+//         id:1
+//     }
+// })
 
 console.log(store.getState())
 
