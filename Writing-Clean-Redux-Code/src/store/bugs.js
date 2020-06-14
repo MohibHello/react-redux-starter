@@ -11,7 +11,7 @@
     so this Duck pattern helps by putting all action types,creators,reducer
     in one js file
 */
-import { createAction } from "@reduxjs/toolkit";
+import { createAction, createReducer } from "@reduxjs/toolkit";
 
 //Action using createAction from reduxjs/toolkit
 
@@ -27,33 +27,51 @@ via Store
 // Reducers
 let lastId = 0;
 
-export default function reducer(state = [], action) {
-  switch (action.type) {
-    case bugAdded.type:
-      return [
-        //shallow copy of passed state
-        ...state,
-        //action which has to be performed while adding bug
-        {
-          id: ++lastId,
-          description: action.payload.description,
-          resolved: false,
-        },
-      ];
-      break;
-    case bugRemoved.type:
-      // to remove object in state this way is recommended
-      return state.filter((bug) => bug.id !== action.payload.id);
+export default createReducer([], {
+  //key:value
+  //actions:functions(event => event handler)
+  [bugAdded.type]: (bugs, action) => {
+    bugs.push({
+      id: ++lastId,
+      description: action.payload.description,
+      resolved: false,
+    });
+  },
 
-      break;
+  [bugResolved.type]: (bugs, action) => {
+    const index = bugs.findIndex((bug) => bug.id !== action.payload.id);
+    bugs[index].resolved = true;
+  },
 
-    case bugResolved.type:
-      // mapping array if id !=payload.id then return bug else change reslove:true
-      return state.map((bug) =>
-        bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
-      );
+});
 
-    default:
-      return state;
-  }
-}
+// export default function reducer(state = [], action) {
+//   switch (action.type) {
+//     case bugAdded.type:
+//       return [
+//         //shallow copy of passed state
+//         ...state,
+//         //action which has to be performed while adding bug
+//         {
+//           id: ++lastId,
+//           description: action.payload.description,
+//           resolved: false,
+//         },
+//       ];
+//       break;
+//     case bugRemoved.type:
+//       // to remove object in state this way is recommended
+//       return state.filter((bug) => bug.id !== action.payload.id);
+
+//       break;
+
+//     case bugResolved.type:
+//       // mapping array if id !=payload.id then return bug else change reslove:true
+//       return state.map((bug) =>
+//         bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
+//       );
+
+//     default:
+//       return state;
+//   }
+// }
