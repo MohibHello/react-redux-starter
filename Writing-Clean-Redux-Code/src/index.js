@@ -1,7 +1,8 @@
 import configureStore from './store/configureStore';
 
-import * as actions from './store/bugs'
+// import * as actions from './store/bugs'
 
+import * as actions from './store/createSlice'
 
 const store = configureStore();
 
