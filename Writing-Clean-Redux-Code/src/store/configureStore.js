@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 // we need not to use {} since reducer is default export
-import reducer from "./bugs";
+import reducer from "./projects";
+
 
 /* Using redux-toolkit library the below configureStore() can be
 mimiced and here we are importing configureStore from redux/toolkit
